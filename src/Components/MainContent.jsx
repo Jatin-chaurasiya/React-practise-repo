@@ -29,6 +29,27 @@ const MainContent = () => {
   if(data.length === 0) { 
     return <p>Loading...</p>;
   }
+  const addPost = async(newPost) => {
+    try {
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts", { 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newPost)
+      });
+      const data = await response.json();
+      setData((prevPost) => [...prevPost,
+        {
+          ...data,
+          id: prevPost.length + 1
+        }
+      ]);
+      console.log("Post added:", data);
+    } catch (error) {
+      console.error("Error adding post:", error);
+    }
+  };
 
   return (
     <div className="p-4">
@@ -52,7 +73,7 @@ const MainContent = () => {
       </button> 
       <div className="mt-8">
       <h2 className="bg-black text-white text-center">Add Post</h2>
-      <Form/>
+      <Form addPost={addPost}/>
       </div>
     </div>
   );
