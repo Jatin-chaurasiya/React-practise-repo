@@ -13,7 +13,7 @@ const MainContent = () => {
   const [showDeletePop, setShowDeletePop] = useState(false);
 
   useEffect(() => { 
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch("http://localhost:5000/posts")
       .then(response => response.json())
       .then(json => setData(json))
       .catch(error => console.error("Error fetching data:", error));
@@ -33,7 +33,7 @@ const MainContent = () => {
   }
   const addPost = async(newPost) => {
     try {
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts", { 
+      const response = await fetch("http://localhost:5000/posts", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -54,7 +54,7 @@ const MainContent = () => {
   };
   const deletePost = async(id) => {
     try {
-      const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      const response = await fetch(`http://localhost:5000/posts/${id}`, {
         method: "DELETE"
       });
       if(response.ok) {
